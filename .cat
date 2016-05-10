@@ -1,0 +1,5 @@
+#!/bin/bash
+# Silly script, required for now. See :
+# https://tickets.puppetlabs.com/browse/PUP-3918
+# Expects YAML variable exported
+exec cat `dirname $0`/$YAML

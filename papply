@@ -1,0 +1,36 @@
+#!/bin/bash
+
+# Check, check, check and check again
+if [ "`id -u`" != "0" ]; then
+  echo "ERROR: This script must be run as root."
+  exit 1
+fi
+if [ ! -x "${PWD}/papply" ]; then
+  echo "ERROR: This script must be run from the 'puppet-apply' dir as ./papply"
+  exit 1
+fi
+if [ ! -e modules/itnow/manifests ]; then
+  echo "WARNING: have you run 'git submodule init; git submodule update'?"
+fi
+
+# Let the user test custom yaml files (--noop and --debug options must be added at the end)
+if [ $# -ge 2 ] && [ $1 == "--yaml" ]; then
+  YAML="$2"
+  ARGS=${@:3}
+else
+  YAML="apply.yaml"
+  ARGS=$*
+fi
+
+# Try to be smart about manifests vs. YAML
+if grep -q ^classes "$YAML" 2>/dev/null; then
+  echo "papply : ENC mode (classes enabled in $YAML)"
+  export YAML
+  OPTION="--node_terminus=exec --external_nodes=$PWD/.cat apply/site.pp"
+else
+  echo "papply : Manifest mode (no classes enabled in $YAML)"
+  OPTION="apply"
+fi
+
+puppet apply -v --show_diff --hiera_config=/dev/null --modulepath=$PWD/modules --logdest=console --logdest=/var/log/puppet/puppet.log $OPTION $ARGS
+
