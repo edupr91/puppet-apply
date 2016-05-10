@@ -1,0 +1,21 @@
+[submodule "modules/apache"]
+	path = modules/apache
+	url = git@github.com:puppetlabs/puppetlabs-apache.git
+[submodule "modules/concat"]
+	path = modules/concat
+	url = git@github.com:puppetlabs/puppetlabs-concat.git
+[submodule "modules/inifile"]
+	path = modules/inifile
+	url = git@github.com:puppetlabs/puppetlabs-inifile.git
+[submodule "modules/java"]
+	path = modules/java
+	url = git@github.com:puppetlabs/puppetlabs-java.git
+[submodule "modules/logrotate"]
+	path = modules/logrotate
+	url = git@github.com:rodjek/puppet-logrotate.git
+[submodule "modules/lvm"]
+	path = modules/lvm
+	url = git@github.com:puppetlabs/puppetlabs-lvm.git
+[submodule "modules/stdlib"]
+	path = modules/stdlib
+	url = git@github.com:puppetlabs/puppetlabs-stdlib.git
